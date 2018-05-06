@@ -13,7 +13,7 @@ bookController.find = function (req, res) {
   let limit = parseInt(req.query.limit || 10); //每页显示条数（默认10条）
   let name = req.query.name || ''; //图书名称
   let total = 0;
-  let rltBooks = []; 
+  let rltBooks = [];
   if (name.length > 0) {
     let mockBooks = _Books.filter(book => {
       return book.name.indexOf(name) > -1;
@@ -32,7 +32,7 @@ bookController.find = function (req, res) {
 };
 
 /**
- * 通过id获取某一条图书新
+ * 通过id获取
  * @param req
  * @param res
  */
@@ -48,7 +48,7 @@ bookController.findById = function (req, res) {
 };
 
 /**
- * 添加一条图书信息
+ * 添加一条信息
  * @param req
  * @param res
  */

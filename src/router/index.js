@@ -10,6 +10,7 @@ import UserList from '@/components/user/list'
 import UserChangePwd from '@/components/user/changepwd'
 import UserProfile from '@/components/user/profile'
 import WaterFall from '@/components/waterfall/waterfall'
+import Customer from '@/components/customer/customer'
 
 // 懒加载方式，当路由被访问的时候才加载对应组件
 const Login = resolve => require(['@/components/Login'], resolve)
@@ -39,23 +40,34 @@ let router = new Router({
     {
       path: '/',
       component: Home,
-      name: '用户管理',
+      name: '员工列表',
       menuShow: true,
       leaf: true, // 只有一个节点
       iconCls: 'iconfont icon-users', // 图标样式class
       children: [
-        {path: '/user/list', component: UserList, name: '用户列表', menuShow: true}
+        {path: '/user/list', component: UserList, name: '员工列表', menuShow: true}
       ]
     },
     {
       path: '/',
       component: Home,
-      name: '菜品管理',
+      name: '菜单管理',
       menuShow: true,
       iconCls: 'iconfont icon-books',
       children: [
-        {path: '/book/list', component: BookList, name: '菜式列表', menuShow: true},
-        {path: '/book/category', component: BookCategoryList, name: '菜品分类', menuShow: true}
+        {path: '/book/list', component: BookList, name: '菜单列表', menuShow: true},
+        {path: '/book/category', component: BookCategoryList, name: '饮料', menuShow: true}
+      ]
+    },
+    {
+      path: '/',
+      component: Home,
+      name: '客户点餐',
+      menuShow: true,
+      leaf: true, // 只有一个节点
+      iconCls: 'el-icon-tickets', // 图标样式class
+      children: [
+        {path: '/customer/customer', component: Customer, name: '客户点餐', menuShow: true}
       ]
     },
     {
@@ -66,7 +78,7 @@ let router = new Router({
       leaf: true, // 只有一个节点
       iconCls: 'iconfont icon-users', // 图标样式class
       children: [
-        {path: '/waterfall/waterfall', component: WaterFall, name: '瀑布流图', menuShow: true}
+        {path: '/waterfall/waterfall', component: WaterFall, name: 'test', menuShow: true}
       ]
     },
     {

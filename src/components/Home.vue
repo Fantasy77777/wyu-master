@@ -3,22 +3,24 @@
     <!--头部-->
     <el-col :span="24" class="topbar-wrap">
       <div class="topbar-logo topbar-btn">
-        <h4>张俊薪</h4>
+        <h4 style="margin-top: 10px;" class="suer-select">张俊薪</h4>
         <!-- <a href="/"><img src="../assets/logo.png" style="padding-left:8px;"></a> -->
       </div>
       <div class="topbar-logos" v-show="!collapsed">
         <!-- <a href="/"><img src="../assets/logotxt.png"></a> -->
       </div>
       <div class="topbar-title">
-        <span class="menu-toggle" @click.prevent="collapse">
-          <i class="iconfont icon-menufold" v-show="!collapsed"></i>
-          <i class="iconfont icon-menuunfold" v-show="collapsed"></i>
-        </span>
-        <span style="font-size: 18px;color: #fff; margin-left:20px;">后台管理系统</span>
+        <!--<span class="menu-toggle" @click.prevent="collapse">-->
+        <!--<i class="iconfont icon-menufold" v-show="!collapsed"></i>-->
+        <!--<i class="iconfont icon-menuunfold" v-show="collapsed"></i>-->
+        <!--</span>-->
+        <span style="font-size: 18px;color: #fff; margin-left:20px;" class="suer-select">后台管理系统</span>
       </div>
       <div class="topbar-account topbar-btn">
         <el-dropdown trigger="click">
-          <span class="el-dropdown-link userinfo-inner"><i class="iconfont icon-user"></i> {{nickname}}  <i
+          <!--<span class="el-dropdown-link userinfo-inner"><i class="iconfont icon-user"></i> {{nickname}}  <i-->
+          <!--class="iconfont icon-down"></i></span>-->
+          <span class="el-dropdown-link userinfo-inner suer-select"><img src="/static/img/head.gif" class="headImg">{{nickname}}  <i
             class="iconfont icon-down"></i></span>
           <el-dropdown-menu slot="dropdown">
             <el-dropdown-item>
@@ -38,10 +40,10 @@
       <!--左侧导航-->
       <aside :class="{showSidebar:!collapsed}">
         <!--展开折叠开关-->
-        <!-- <div class="menu-toggle" @click.prevent="collapse">
+        <div class="menu-toggle" @click.prevent="collapse" style="cursor: pointer;">
           <i class="iconfont icon-menufold" v-show="!collapsed"></i>
           <i class="iconfont icon-menuunfold" v-show="collapsed"></i>
-        </div> -->
+        </div>
         <!--导航菜单-->
         <el-menu :default-active="defaultActiveIndex" router :collapse="collapsed" @select="handleSelect">
           <template v-for="(item,index) in $router.options.routes" v-if="item.menuShow">
@@ -81,7 +83,7 @@
 
   export default {
     name: 'home',
-    created(){
+    created() {
       bus.$on('setNickName', (text) => {
         this.nickname = text;
       })
@@ -93,7 +95,7 @@
         this.$router.push(url);
       })
     },
-    data () {
+    data() {
       return {
         defaultActiveIndex: "0",
         nickname: '',
@@ -101,18 +103,18 @@
       }
     },
     methods: {
-      handleSelect(index){
+      handleSelect(index) {
         this.defaultActiveIndex = index;
       },
       //折叠导航栏
       collapse: function () {
         this.collapsed = !this.collapsed;
       },
-      jumpTo(url){
+      jumpTo(url) {
         this.defaultActiveIndex = url;
         this.$router.push(url); //用go刷新
       },
-      logout(){
+      logout() {
         let that = this;
         this.$confirm('确认退出吗?', '提示', {
           confirmButtonClass: 'el-button--warning'
@@ -131,7 +133,8 @@
             console.log(error);
             that.$message.error({showClose: true, message: '请求出现异常', duration: 2000});
           });
-        }).catch(() => {});
+        }).catch(() => {
+        });
       }
     },
     mounted() {
@@ -145,6 +148,17 @@
 </script>
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped lang="scss">
+  .suer-select {
+    cursor: pointer;
+    moz-user-select: -moz-none;
+    -moz-user-select: none;
+    -o-user-select: none;
+    -khtml-user-select: none;
+    -webkit-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+  }
+
   .container {
     position: absolute;
     top: 0px;
@@ -268,5 +282,11 @@
         box-sizing: border-box;
       }
     }
+  }
+
+  .headImg {
+    width: 35px;
+    vertical-align: middle;
+    margin-right: 10px;
   }
 </style>

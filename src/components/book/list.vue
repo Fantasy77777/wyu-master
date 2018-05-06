@@ -38,8 +38,11 @@
             </el-form>
           </template>
         </el-table-column>
-        <el-table-column prop="name" label="菜名" header-align="center" align="center" sortable width="400"></el-table-column>
-        <el-table-column prop="author" label="作者" header-align="center" align="center" width="350" sortable></el-table-column>
+        <el-table-column prop="name" label="菜名" header-align="center" align="center" sortable width="200"></el-table-column>
+        <el-table-column prop="food_type" label="分类" header-align="center" align="center" width="100" sortable></el-table-column>
+        <el-table-column prop="food_img" label="参考图" header-align="center" align="center" sortable></el-table-column>
+        <el-table-column prop="price" label="价格" header-align="center" align="center" sortable></el-table-column>
+        <!--<el-table-column prop="author" label="作者" header-align="center" align="center" width="100" sortable></el-table-column>-->
         <el-table-column prop="publishAt" label="添加日期" header-align="center" align="center" sortable></el-table-column>
         <el-table-column label="操作" align="center" width="150">
           <template slot-scope="scope">
@@ -62,8 +65,8 @@
           <el-form-item label="菜名" prop="name">
             <el-input v-model="editForm.name" auto-complete="off"></el-input>
           </el-form-item>
-          <el-form-item label="作者" prop="author">
-            <el-input v-model="editForm.author" auto-complete="off"></el-input>
+          <el-form-item label="分类" prop="food_type">
+            <el-input v-model="editForm.food_type" auto-complete="off"></el-input>
           </el-form-item>
           <el-form-item label="添加日期">
             <el-date-picker type="date" placeholder="选择日期" v-model="editForm.publishAt"></el-date-picker>
@@ -84,8 +87,8 @@
           <el-form-item label="菜名" prop="name">
             <el-input v-model="addForm.name" auto-complete="off"></el-input>
           </el-form-item>
-          <el-form-item label="作者" prop="author">
-            <el-input v-model="addForm.author" auto-complete="off"></el-input>
+          <el-form-item label="价格" prop="food_type">
+            <el-input v-model="addForm.food_type" auto-complete="off"></el-input>
           </el-form-item>
           <el-form-item label="添加日期">
             <el-date-picker type="date" placeholder="选择日期" v-model="addForm.publishAt"></el-date-picker>
@@ -126,8 +129,8 @@
           name: [
             {required: true, message: '请输入菜名', trigger: 'blur'}
           ],
-          author: [
-            {required: true, message: '请输入作者', trigger: 'blur'}
+          food_type: [
+            {required: true, message: '请输入分类', trigger: 'blur'}
           ],
           description: [
             {required: true, message: '请输入简介', trigger: 'blur'}
@@ -136,7 +139,7 @@
         editForm: {
           id: 0,
           name: '',
-          author: '',
+          food_type: '',
           publishAt: '',
           description: ''
         },
@@ -148,8 +151,8 @@
           name: [
             {required: true, message: '请输入菜名', trigger: 'blur'}
           ],
-          author: [
-            {required: true, message: '请输入作者', trigger: 'blur'}
+          food_type: [
+            {required: true, message: '请输入分类', trigger: 'blur'}
           ],
           description: [
             {required: true, message: '请输入简介', trigger: 'blur'}
@@ -157,7 +160,7 @@
         },
         addForm: {
           name: '',
-          author: '',
+          food_type: '',
           publishAt: '',
           description: ''
         }
@@ -260,7 +263,7 @@
         this.addFormVisible = true;
         this.addForm = {
           name: '',
-          author: '',
+          food_type: '',
           publishAt: '',
           description: ''
         };

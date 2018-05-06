@@ -9,11 +9,11 @@
     </el-col>
 
     <el-col :span="24" class="warp-main">
-      <el-form ref="form" :model="form" :rules="rules" label-width="80px">
+      <el-form ref="form" :model="form" :rules="rules" label-width="80px" class="profileForm">
         <el-form-item label="账号">
-          <el-input v-model="form.useranme" disabled></el-input>
+          <el-input v-model="form.username" disabled></el-input>
         </el-form-item>
-        <el-form-item prop="nickname" label="昵称" >
+        <el-form-item prop="nickname" label="昵称">
           <el-input v-model="form.nickname" disabled></el-input>
         </el-form-item>
         <el-form-item prop="name" label="姓名">
@@ -26,7 +26,7 @@
           <el-input v-model="form.email"></el-input>
         </el-form-item>
         <el-form-item>
-          <el-button type="primary" @click="handleSaveProfile()">修改并保存</el-button>
+          <el-button type="primary" @click="handleSaveProfile(form)">修改并保存</el-button>
         </el-form-item>
       </el-form>
     </el-col>
@@ -42,7 +42,7 @@
       return {
         loading: false,
         form: {
-          useranme: '',
+          username: '',
           nickname: '',
           name: '',
           phone: '',
@@ -52,6 +52,9 @@
           nickname: [
             {required: true, message: '请输入昵称', trigger: 'blur'}
           ],
+          phone: [
+            {require: true, message: '请输入电话号码', trigger: 'blur'}
+          ],
           email: [
             {required: true, message: '请输入邮箱', trigger: 'blur'},
             {type: 'email', message: '请输入正确的邮箱地址', trigger: 'blur,change'}
@@ -60,18 +63,19 @@
       }
     },
     methods: {
-      handleSaveProfile() {
+      handleSaveProfile(form) {
         let that = this;
         that.$refs.form.validate((valid) => {
           if (valid) {
             that.loading = true;
-            let args = {
-              nickname: that.form.nickname,
-              name: that.form.name,
-              email: that.form.email,
-              phone: that.form.phone
-            };
-            API.changeProfile(args).then(function (result) {
+//            let args = {
+//              nickname: that.form.nickname,
+//              name: that.form.name,
+//              email: that.form.email,
+//              phone: that.form.phone
+//            };
+//            console.log("form=" + JSON.stringify(form));
+            API.changeProfile(form).then(function (result) {
               that.loading = false;
               if (result && parseInt(result.errcode) === 0) {
                 //修改成功
@@ -103,7 +107,7 @@
       if (user) {
         console.log(JSON.stringify(user));
         user = JSON.parse(user);
-        this.form.useranme = user.username;
+        this.form.username = user.username;
         this.form.nickname = user.nickname || '';
         this.form.email = user.email || '';
         this.form.name = user.name || '';
@@ -112,3 +116,8 @@
     }
   }
 </script>
+<style>
+  .profileForm input {
+    width: 75%;
+  }
+</style>

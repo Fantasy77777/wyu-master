@@ -2,7 +2,7 @@
 	<el-row class="warp">
 	    <el-col :span="24" class="warp-breadcrum">
 	      <el-breadcrumb separator="/">
-	        <el-breadcrumb-item><h2><b>瀑布流菜单展示图</b></h2></el-breadcrumb-item>
+	        <el-breadcrumb-item><h2><b>test1111</b></h2></el-breadcrumb-item>
 	      </el-breadcrumb>
 	    </el-col>
     </el-row>

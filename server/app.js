@@ -13,12 +13,12 @@ mongoose.connect('mongodb://localhost/wyu_data');
 var db = mongoose.connection;
 
 //连接成功
-db.on('open',function () {
-    console.log('MongoDB Connection Successed');
+db.on('open', function () {
+  console.log('MongoDB Connection Successed');
 });
 //连接失败
-db.on('error',function () {
-    console.log('MongoDB Connection Error');
+db.on('error', function () {
+  console.log('MongoDB Connection Error');
 });
 
 

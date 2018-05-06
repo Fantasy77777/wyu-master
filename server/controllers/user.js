@@ -79,22 +79,27 @@ userController.logout = function (req, res) {
  * @param res
  */
 userController.profile = function (req, res) {
-  // let nickname = req.body.nickname;
-  let email = req.body.email;
-  let name = req.body.name;
-  let phone = req.body.phone;
-  let i = _.findIndex(_Users, function (u) {
-    return u.id === req.session.userId
-  })
-  if (i > -1) {
-    // _Users[i].nickname = nickname;
-    _Users[i].email = email;
-    _Users[i].name = name;
-    _Users[i].phone = phone;
-    res.json({"errcode": 0, "errmsg": "修改成功"});
-  } else {
-    res.json({"errcode": 40009, "errmsg": "处理失败"});
-  }
+  let userProfile = req.body;
+  let condition = {
+    username: userProfile.username
+  };
+  let options = {
+    $set:
+      {
+        name: userProfile.name,
+        phone: userProfile.phone,
+        email: userProfile.email,
+        // sex: userProfile.sex
+      }
+  };
+
+  UserModel.updateOne(condition, options, function (err, doc) {
+    if (err) {
+      res.json({"errcode": 40009, "errmsg": "处理失败"});
+    } else {
+      res.json({"errcode": 0, "errmsg": "修改成功"});
+    }
+  });
 };
 
 /**
@@ -107,7 +112,7 @@ userController.changepwd = function (req, res) {
 };
 
 /**
- * 通过书名查询，获取图书列表
+ * 通过查询，获取对应列表
  * @param req
  * @param res
  */
@@ -117,24 +122,12 @@ userController.find = function (req, res) {
   let name = req.query.name || '';
   let total = 0;
   let rltUsers = [];
-  /*if (name.length > 0) {
-    let mockUsers = _Users.filter(user => {
-      return (user.username.indexOf(name) > -1 || user.nickname.indexOf(name) > -1 || user.name.indexOf(name) > -1 || user.sex.indexOf(name) > -1 )
-    });
-    total = mockUsers.length; //总条数
-    rltUsers = mockUsers.filter((u, index) => index < limit * page && index >= limit * (page - 1))
-  } else {
-    total = _Users.length; //总条数
-    rltUsers = _Users.filter((u, index) => index < limit * page && index >= limit * (page - 1))
-  }*/
-
   UserModel.count(null, (err, count) => {
     if (count) {
       this.total = count;
     }
   })
 
-  // if (name.length > 0) {}
   let queryOption = null;
   if (name.length > 0) {
     queryOption = [
@@ -142,10 +135,11 @@ userController.find = function (req, res) {
       {nickname: {$regex: name}},
       {name: {$regex: name}},
       {phone: {$regex: name}},
+      {email: {$regex: name}},
       {sex: {$regex: name}}];
   }
 
-  _Users.find(queryOption ? {$or: queryOption} : queryOption,  (err, data) => {
+  _Users.find(queryOption ? {$or: queryOption} : queryOption, (err, data) => {
     if (data) {
       // total = data.length;
       rltUsers = rltUsers.concat(data);
