@@ -25,24 +25,14 @@
       </el-col>
 
       <!--列表-->
-      <el-table :data="books" highlight-current-row stripe border @selection-change="selsChange"
+      <el-table :data="books" height="400" highlight-current-row stripe border @selection-change="selsChange"
                 style="width: 100%;">
         <el-table-column type="selection" width="80" align="center"></el-table-column>
         <el-table-column type="index" width="60" align="center"></el-table-column>
-        <el-table-column type="expand" align="center" width="100" label="简介">
-          <template slot-scope="props">
-            <el-form label-position="left" inline class="demo-table-expand">
-              <el-form-item label="[菜式简介]">
-                <span>{{ props.row.description }}</span>
-              </el-form-item>
-            </el-form>
-          </template>
-        </el-table-column>
         <el-table-column prop="name" label="菜名" header-align="center" align="center" sortable width="200"></el-table-column>
         <el-table-column prop="food_type" label="分类" header-align="center" align="center" width="100" sortable></el-table-column>
         <el-table-column prop="food_img" label="参考图" header-align="center" align="center" sortable></el-table-column>
         <el-table-column prop="price" label="价格" header-align="center" align="center" sortable></el-table-column>
-        <!--<el-table-column prop="author" label="作者" header-align="center" align="center" width="100" sortable></el-table-column>-->
         <el-table-column prop="publishAt" label="添加日期" header-align="center" align="center" sortable></el-table-column>
         <el-table-column label="操作" align="center" width="150">
           <template slot-scope="scope">
@@ -68,11 +58,14 @@
           <el-form-item label="分类" prop="food_type">
             <el-input v-model="editForm.food_type" auto-complete="off"></el-input>
           </el-form-item>
+          <el-form-item label="价格" prop="food_type">
+            <el-input v-model="editForm.price" auto-complete="off"></el-input>
+          </el-form-item>
+          <el-form-item label="参考图" prop="food_type">
+            <el-input v-model="editForm.food_img" auto-complete="off"></el-input>
+          </el-form-item>
           <el-form-item label="添加日期">
             <el-date-picker type="date" placeholder="选择日期" v-model="editForm.publishAt"></el-date-picker>
-          </el-form-item>
-          <el-form-item label="简介" prop="description">
-            <el-input type="textarea" v-model="editForm.description" :rows="8"></el-input>
           </el-form-item>
         </el-form>
         <div slot="footer" class="dialog-footer">
@@ -87,14 +80,17 @@
           <el-form-item label="菜名" prop="name">
             <el-input v-model="addForm.name" auto-complete="off"></el-input>
           </el-form-item>
+          <el-form-item label="分类" prop="food_type">
+            <el-input v-model="addForm.food_type" auto-complete="off"></el-input>
+          </el-form-item>
           <el-form-item label="价格" prop="food_type">
             <el-input v-model="addForm.food_type" auto-complete="off"></el-input>
           </el-form-item>
+          <el-form-item label="参考图" prop="food_type">
+            <el-input v-model="editForm.food_img" auto-complete="off"></el-input>
+          </el-form-item>
           <el-form-item label="添加日期">
             <el-date-picker type="date" placeholder="选择日期" v-model="addForm.publishAt"></el-date-picker>
-          </el-form-item>
-          <el-form-item label="简介" prop="description">
-            <el-input type="textarea" v-model="addForm.description" :rows="8"></el-input>
           </el-form-item>
         </el-form>
         <div slot="footer" class="dialog-footer">

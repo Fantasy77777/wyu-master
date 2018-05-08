@@ -1,7 +1,7 @@
 var mongoose = require("mongoose");
 var Schema = mongoose.Schema;
 
-var userSchema = new Schema({
+var userSchema = new Schema({ // 表结构
   _id: {
     type: String
   },
