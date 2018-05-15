@@ -16,6 +16,7 @@ export default {
   add: params => {
     return API.POST(`/api/v1/books`, params)
   },
+
   update: (id, params) => {
     return API.PUT(`/api/v1/books/${id}`, params)
   },

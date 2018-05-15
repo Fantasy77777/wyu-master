@@ -68,17 +68,10 @@
         that.$refs.form.validate((valid) => {
           if (valid) {
             that.loading = true;
-//            let args = {
-//              nickname: that.form.nickname,
-//              name: that.form.name,
-//              email: that.form.email,
-//              phone: that.form.phone
-//            };
-//            console.log("form=" + JSON.stringify(form));
             API.changeProfile(form).then(function (result) {
               that.loading = false;
               if (result && parseInt(result.errcode) === 0) {
-                //修改成功
+                // 修改成功
                 let user = JSON.parse(window.localStorage.getItem('access-user'));
                 user.nickname = that.form.nickname;
                 user.name = that.form.name;

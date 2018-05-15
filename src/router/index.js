@@ -4,12 +4,11 @@ import Home from '@/components/Home'
 import Dashboard from '@/components/Dashboard'
 
 import BookList from '@/components/book/list'
-import BookCategoryList from '@/components/bookcategory/list'
+// import BookCategoryList from '@/components/bookcategory/list'
 
 import UserList from '@/components/user/list'
 import UserChangePwd from '@/components/user/changepwd'
 import UserProfile from '@/components/user/profile'
-import WaterFall from '@/components/waterfall/waterfall'
 import Customer from '@/components/customer/customer'
 
 // 懒加载方式，当路由被访问的时候才加载对应组件
@@ -55,8 +54,8 @@ let router = new Router({
       menuShow: true,
       iconCls: 'iconfont icon-books',
       children: [
-        {path: '/book/list', component: BookList, name: '菜单列表', menuShow: true},
-        {path: '/book/category', component: BookCategoryList, name: '饮料', menuShow: true}
+        {path: '/book/list', component: BookList, name: '菜单列表', menuShow: true}
+        // {path: '/book/category', component: BookCategoryList, name: '饮料', menuShow: true}
       ]
     },
     {
@@ -68,17 +67,6 @@ let router = new Router({
       iconCls: 'el-icon-tickets', // 图标样式class
       children: [
         {path: '/customer/customer', component: Customer, name: '客户点餐', menuShow: true}
-      ]
-    },
-    {
-      path: '/',
-      component: Home,
-      name: '瀑布流图',
-      menuShow: true,
-      leaf: true, // 只有一个节点
-      iconCls: 'iconfont icon-users', // 图标样式class
-      children: [
-        {path: '/waterfall/waterfall', component: WaterFall, name: 'test', menuShow: true}
       ]
     },
     {

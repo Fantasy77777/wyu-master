@@ -4,22 +4,14 @@
     <el-col :span="24" class="topbar-wrap">
       <div class="topbar-logo topbar-btn">
         <h4 style="margin-top: 10px;" class="suer-select">张俊薪</h4>
-        <!-- <a href="/"><img src="../assets/logo.png" style="padding-left:8px;"></a> -->
       </div>
       <div class="topbar-logos" v-show="!collapsed">
-        <!-- <a href="/"><img src="../assets/logotxt.png"></a> -->
       </div>
       <div class="topbar-title">
-        <!--<span class="menu-toggle" @click.prevent="collapse">-->
-        <!--<i class="iconfont icon-menufold" v-show="!collapsed"></i>-->
-        <!--<i class="iconfont icon-menuunfold" v-show="collapsed"></i>-->
-        <!--</span>-->
         <span style="font-size: 18px;color: #fff; margin-left:20px;" class="suer-select">后台管理系统</span>
       </div>
       <div class="topbar-account topbar-btn">
         <el-dropdown trigger="click">
-          <!--<span class="el-dropdown-link userinfo-inner"><i class="iconfont icon-user"></i> {{nickname}}  <i-->
-          <!--class="iconfont icon-down"></i></span>-->
           <span class="el-dropdown-link userinfo-inner suer-select"><img src="/static/img/head.gif" class="headImg">{{nickname}}  <i
             class="iconfont icon-down"></i></span>
           <el-dropdown-menu slot="dropdown">
@@ -49,7 +41,8 @@
           <template v-for="(item,index) in $router.options.routes" v-if="item.menuShow">
             <el-submenu v-if="!item.leaf" :index="index+''">
               <template slot="title"><i :class="item.iconCls"></i><span slot="title">{{item.name}}</span></template>
-              <el-menu-item v-for="term in item.children" :key="term.path" :index="term.path" v-if="term.menuShow"
+              <el-menu-item style="background-color: #2c3e50" v-for="term in item.children" :key="term.path"
+                            :index="term.path" v-if="term.menuShow"
                             :class="$route.path==term.path?'is-active':''">
                 <i :class="term.iconCls"></i><span slot="title">{{term.name}}</span>
               </el-menu-item>
@@ -100,6 +93,8 @@
         defaultActiveIndex: "0",
         nickname: '',
         collapsed: false,
+        isAdmin: false,
+        isSuperAdmin: false,
       }
     },
     methods: {
@@ -142,6 +137,21 @@
       if (user) {
         user = JSON.parse(user);
         this.nickname = user.nickname || '';
+
+        if (this.nickname == '普通管理员') {
+
+          let hiddenMenuName = ['菜单管理', '员工列表'];
+          this.$router.options.routes.forEach(e => {
+
+            if (hiddenMenuName.indexOf(e.name) >= 0) {
+              e.menuShow = false;
+            }
+          });
+
+
+        } else if (this.nickname == '超级管理员') {
+        }
+
       }
     }
   }

@@ -76,7 +76,7 @@
       </el-col>
 
       <!--列表-->
-      <el-table :data="users" highlight-current-row stripe border v-loading="loading" style="width: 100%;">
+      <el-table :data="users" highlight-current-row stripe border v-loading="loading" height="450" style="width: 100%;">
         <el-table-column type="index" width="60" fixed header-align="center" align="center">
         </el-table-column>
         <el-table-column prop="username" header-align="center" align="center" label="账号" width="150" sortable>
@@ -96,10 +96,15 @@
         <el-table-column label="操作" fixed="right" align="center" width="120">
           <template slot-scope="scope">
             <!--<el-button size="small" @click="showEditDialog(scope.$index,scope.row)">编辑</el-button>-->
-            <el-button type="danger" @click="delUser(scope.$index,scope.row)" size="small">删除</el-button>
+            <el-button type="danger" @click="delOneUser(scope.row.username)" size="small">删除</el-button>
           </template>
         </el-table-column>
       </el-table>
+      <!--<el-col :span="24" class="toolbar">-->
+        <!--<el-pagination layout="prev, pager, next" @current-change="handleCurrentChange" :page-size="10" :total="total"-->
+                       <!--style="float:right;margin-right: 50%;">-->
+        <!--</el-pagination>-->
+      <!--</el-col>-->
     </el-col>
   </el-row>
 </template>
@@ -152,8 +157,7 @@
             {required: true, message: '请选择性别', trigger: 'blur'}
           ],
           phone: [
-            {required: true, message: '请输入电话', trigger: 'blur'},
-            {type: 'number'}
+            {required: true, message: '请输入电话', trigger: 'blur'}
           ],
           email: [
             {required: true, message: '请输入邮箱', trigger: 'blur'}
@@ -168,13 +172,14 @@
           sex: '',
           phone: '',
           email: '',
-          addr: ''
+          addr: '',
+          pwd:''
         },
         loading: false,
         users: [],
         total: 0,
         page: 1,
-        limit: 10,
+        limit: 100,
         loading: false
       }
     },
@@ -216,11 +221,30 @@
       showAddDialog: function () {
         this.addFormVisible = true;
         this.addForm = {
-          name: '',
-          food_type: '',
-          publishAt: '',
-          description: ''
+          name: ''
         };
+      },
+      delOneUser: function (uid) {
+        alert(uid);
+        let that = this;
+        this.$confirm('确认删除该记录吗?', '提示', {type: 'warning'}).then(() => {
+          that.loading = true;
+          API.delOneUser(uid).then(function (result) {
+            that.loading = false;
+            if (result && parseInt(result.errcode) === 0) {
+              that.$message.success({showClose: true, message: '删除成功', duration: 1500});
+              that.search();
+            }
+          }, function (err) {
+            that.loading = false;
+            that.$message.error({showClose: true, message: err.toString(), duration: 2000});
+          }).catch(function (error) {
+            that.loading = false;
+            console.log(error);
+            that.$message.error({showClose: true, message: '请求出现异常', duration: 2000});
+          });
+        }).catch(() => {
+        });
       },
       //新增
       addSubmit: function () {
@@ -229,7 +253,7 @@
           if (valid) {
             that.loading = true;
             let para = Object.assign({}, this.addForm);
-            para.publishAt = (!para.publishAt || para.publishAt === '') ? '' : util.formatDate.format(new Date(para.publishAt), 'yyyy-MM-dd');
+//            para.publishAt = (!para.publishAt || para.publishAt === '') ? '' : util.formatDate.format(new Date(para.publishAt), 'yyyy-MM-dd');
             API.add(para).then(function (result) {
               that.loading = false;
               if (result && parseInt(result.errcode) === 0) {

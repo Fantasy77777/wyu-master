@@ -1,5 +1,5 @@
 /**
- * Created by jerry on 2017/4/14.
+ *
  */
 var SIGN_REGEXP = /([yMdhsm])(\1*)/g
 var DEFAULT_PATTERN = 'yyyy-MM-dd'

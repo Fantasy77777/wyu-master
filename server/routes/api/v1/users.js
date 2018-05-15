@@ -26,9 +26,9 @@ router.get('/', userController.find);
 // //返回指定的user
 // router.get('/:id', userController.findById);
 //
-// //创建user
-// router.post('/', userController.create);
-//
+//创建user
+router.post('/', userController.add);
+
 // //更新user全部信息
 // router.put('/:id', userController.update);
 //
@@ -36,7 +36,9 @@ router.get('/', userController.find);
 // router.patch('/:id', userController.patch);
 //
 // //删除指定的user
-// router.delete('/:id', userController.delete);
+router.delete('/:id', userController.delOneUser);
+
+// router.post('/', userController.add);
 
 indexRouter.router = router;
 

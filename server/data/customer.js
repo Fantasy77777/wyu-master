@@ -13,7 +13,9 @@
 var mongoose = require("mongoose");
 var Schema = mongoose.Schema;
 
-var bookSchema = new Schema({ // 表结构
+
+//表结构你先定义好
+var customerSchema = new Schema({ // 表结构
   _id: {
     type: String
   },
@@ -34,8 +36,8 @@ var bookSchema = new Schema({ // 表结构
   }
 });
 
+//表名字要修改
+const customerModel = mongoose.model("book_data", customerSchema, 'book_data');
 
-const bookModel = mongoose.model("book_data", bookSchema, 'book_data');
 
-
-module.exports = bookModel;
+module.exports = customerModel;

@@ -108,7 +108,49 @@ userController.profile = function (req, res) {
  * @param res
  */
 userController.changepwd = function (req, res) {
-  //TODO 未开发
+  let userForm = req.body;
+  let condition = {
+    username: userForm.username
+  };
+  // console.log(JSON.stringify(req.body));
+  UserModel.findOne(condition, function (err, user) {
+    if (err) {
+      return res.json({"errcode": 40003, "errmsg": "用户不存在"});
+    }
+    if (!user) {
+      return res.json({"errcode": 40003, "errmsg": "用户不存在"});
+    }
+    if (user.password !== userForm.oldPsw) {
+      return res.json({"errcode": 40004, "errmsg": "原密码错误"});
+    } else {
+      let options = {
+        $set:
+          {
+            password: userForm.newPsw,
+          }
+      };
+      UserModel.updateOne(condition, options, function (err, doc) {
+        if (err) {
+          res.json({"errcode": 40009, "errmsg": "处理失败"});
+        } else {
+          res.json({"errcode": 0, "errmsg": "修改成功"});
+        }
+      });
+    }
+  });
+  /*let options = {
+    $set:
+      {
+        password: user.newPsw,
+      }
+  };
+  UserModel.updateOne(condition, options, function (err, doc) {
+    if (err) {
+      res.json({"errcode": 40009, "errmsg": "处理失败"});
+    } else {
+      res.json({"errcode": 0, "errmsg": "修改成功"});
+    }
+  });*/
 };
 
 /**
@@ -155,4 +197,53 @@ userController.find = function (req, res) {
 
 };
 
+userController.delOneUser = function (req, res) {
+  let username = req.params.id;
+  console.log('@'+username);
+  UserModel.deleteOne({'username': username}, function (err) {
+    if (err) {
+      console.info(err);
+    } else {
+      console.info('删除成功');
+      res.json({"errcode": 0, "errmsg": "成功"});
+    }
+  });
+};
+
+
+
+
+userController.add = function (req, res) {
+  // let conditions = req.body;
+  let conditions = ({
+    id: req.body.id,
+    username: req.body.username,
+    name: req.body.name,
+    password: req.body.pwd,
+    phone: req.body.phone,
+    email: req.body.email,
+    nickname: req.body.nickname,
+    sex: req.body.sex,
+    addr: req.body.addr
+  });
+
+  // console.info("conditions=" + JSON.stringify(conditions));
+  // UserModel.findOneAndUpdate({_id: 0}, {$set: conditions}, {upsert: true}, function (err) {
+  UserModel.findOneAndUpdate({_id: guid()},conditions, {upsert: true}, function (err) {
+      if (err) {
+        console.info(err);
+      } else {
+        console.info('新增成功');
+        res.json({"errcode": 0, "errmsg": "成功"});
+      }
+    }
+  );
+};
+
+function guid() {
+  return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function(c) {
+    var r = Math.random()*16|0, v = c == 'x' ? r : (r&0x3|0x8);
+    return v.toString(16);
+  });
+}
 module.exports = userController;

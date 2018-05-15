@@ -86,15 +86,14 @@
     margin: 160px auto;
     width: 350px;
     padding: 35px 35px 15px 35px;
-    background: #fff;
+    /*background: #fff;*/
     border: 1px solid #eaeaea;
     box-shadow: 0 0 25px #cac6c6;
 
-    background: -ms-linear-gradient(top, #ace, #00C1DE); /* IE 10 */
-    background: -moz-linear-gradient(top, #ace, #00C1DE); /*火狐*/
-    background: -webkit-gradient(linear, 0% 0%, 0% 100%, from(#ace), to(#00C1DE)); /*谷歌*/
-    background: -webkit-linear-gradient(top, #ace, #00C1DE); /*Safari5.1 Chrome 10+*/
-    background: -o-linear-gradient(top,#ace, #00C1DE); /*Opera 11.10+*/
+    background: -webkit-linear-gradient(#65ffec, #9fff8b); /* Safari 5.1 - 6.0 */
+    background: -o-linear-gradient(#65ffec, #9fff8b); /* Opera 11.1 - 12.0 */
+    background: -moz-linear-gradient(#65ffec, #9fff8b); /* Firefox 3.6 - 15 */
+    background: linear-gradient(#65ffec, #9fff8b); /* 标准的语法 */
 
     .title {
       margin: 0px auto 40px auto;
