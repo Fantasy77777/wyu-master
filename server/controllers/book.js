@@ -43,7 +43,7 @@ bookController.find = function (req, res) {
 // bookController.find = function (req, res) {
 //   let page = parseInt(req.query.page || 1); //页码（默认第1页）
 //   let limit = parseInt(req.query.limit || 10); //每页显示条数（默认10条）
-//   let name = req.query.name || ''; //图书名称
+//   let name = req.query.name || ''; //
 //   let total = 0;
 //   let rltBooks = [];
 //   if (name.length > 0) {
@@ -192,8 +192,11 @@ bookController.deleteBatch = function (req, res) {
  */
 bookController.delete = function (req, res) {
   // let id = _.trim(req.params.id || '');
-  let id = req.params.name
-  bookModel.deleteOne({'id': id}, function (err) {
+  let _id = req.params.id;
+
+  // console.log("id=" + _id);
+
+  bookModel.deleteOne({'_id': _id}, function (err) {
     if (err) {
       console.info(err);
     } else {
@@ -201,25 +204,7 @@ bookController.delete = function (req, res) {
       res.json({"errcode": 0, "errmsg": "成功"});
     }
   });
-  // if (!id) {
-  //   return res.json({"errcode": 40002, "errmsg": "不合法的参数"});
-  // }
-  // let i = _.findIndex(_Books, function (u) {
-  //   return u.id === id
-  // })
-  // if (i > -1) {
-  //   _Books.splice(i, 1);
-  //   res.json({"errcode": 0, "errmsg": "修改成功"});
-  // } else {
-  //   res.json({"errcode": 40009, "errmsg": "处理失败"});
-  // }
 
-  // function guid() {
-  //   return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function(c) {
-  //     var r = Math.random()*16|0, v = c == 'x' ? r : (r&0x3|0x8);
-  //     return v.toString(16);
-  //   });
-  // }
 };
 
 module.exports = bookController;

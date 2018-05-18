@@ -53,11 +53,12 @@
             {required: true, message: '请输入昵称', trigger: 'blur'}
           ],
           phone: [
-            {require: true, message: '请输入电话号码', trigger: 'blur'}
+            {required: true, message: '请输入电话', trigger: 'blur'},
+            {pattern: /^1[3|4|5|7|8][0-9]\d{8}$/,message: '号码格式不正确' , trigger: 'blur'}
           ],
           email: [
             {required: true, message: '请输入邮箱', trigger: 'blur'},
-            {type: 'email', message: '请输入正确的邮箱地址', trigger: 'blur,change'}
+            { type: 'email', message: '请输入正确的邮箱地址', trigger: ['blur', 'change'] }
           ]
         },
       }

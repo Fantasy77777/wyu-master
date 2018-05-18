@@ -2,7 +2,7 @@
   <div>
     <div class="pos">
       <el-row>
-        <el-col :span="8" class="pos-order">
+        <el-col :span="9" class="pos-order">
           <el-tabs v-model="activeName">
             <el-tab-pane label="您的菜单记录" name="orderIng" height="600px">
               <el-table :data="tableData" border height="400px">
@@ -22,10 +22,10 @@
             </el-tab-pane>
           </el-tabs>
           <div class="foot-statistical">
-            <span style="margin-left: 20px;margin-right: 50px;"><small>数量：{{totalCount}}</small></span>
-            <span><small>金额：{{totalMoney}}</small>元</span>
+            <span style="margin-left: 20px;margin-right: 50px;"><small>总数量：{{totalCount}}</small></span>
+            <span><small>总金额：{{totalMoney}}</small>元</span>
           </div>
-          <div class="foot-btn" style="margin-left: 200px;">
+          <div class="foot-btn" style="margin-left: 100px;">
             <el-button type="danger" @click="delAllGoods">删除</el-button>
             <el-button type="success" @click="checkout">结账</el-button>
           </div>
@@ -235,36 +235,6 @@
       this.getFoodByType('主菜');
       this.getOftenGoods();
     }
-
-
-//    created() {
-//      // 抓取常用商品
-//      axios.get('json/hotGoods.json')
-//        .then(response => {
-//          console.log(response);
-//          this.oftenGoods = response.data;
-//
-//        })
-//        .catch(error => {
-//          console.log(error);
-//          alert('请在服务器环境下运行或本地使用火狐浏览器打开');
-//        })
-//
-//      // 抓取商品分类
-//      axios.get('json/inGoods.json')
-//        .then(response => {
-//          console.log(response);
-//          // this.oftenGoods=response.data;
-//          this.type0Goods = response.data[0];
-//          this.type1Goods = response.data[1];
-//          this.type2Goods = response.data[2];
-//          this.type3Goods = response.data[3];
-//        })
-//        .catch(error => {
-//          console.log(error);
-//          alert('请在服务器环境下运行或本地使用火狐浏览器打开');
-//        })
-//    }
   })
 </script>
 
@@ -272,22 +242,61 @@
   .content-container {
     padding: 0px !important;
   }
-  body { font-family:"微软雅黑", arial;margin:0; padding:0; background: #FFF; font-size:12px; color:#000;}
-  div,form,img,ul,ol,li,dl,dt,dd {margin: 0; padding: 0; border: 0; }
-  li{list-style-type:none;}
-  img{vertical-align:top;}
-  h1,h2,h3,h4,h5,h6 { margin:0; padding:0;font-size:12px; font-weight:normal;}
 
-  a:link {color: #1f3a87; text-decoration:none;}
-  a:visited {color: #83006f;text-decoration:none;}
-  a:hover {color: #bc2931; text-decoration:underline;}
-  a:active {color: #bc2931;}
+  body {
+    font-family: "微软雅黑", arial;
+    margin: 0;
+    padding: 0;
+    background: #FFF;
+    font-size: 12px;
+    color: #000;
+  }
+
+  div, form, img, ul, ol, li, dl, dt, dd {
+    margin: 0;
+    padding: 0;
+    border: 0;
+  }
+
+  li {
+    list-style-type: none;
+  }
+
+  img {
+    vertical-align: top;
+  }
+
+  h1, h2, h3, h4, h5, h6 {
+    margin: 0;
+    padding: 0;
+    font-size: 12px;
+    font-weight: normal;
+  }
+
+  a:link {
+    color: #1f3a87;
+    text-decoration: none;
+  }
+
+  a:visited {
+    color: #83006f;
+    text-decoration: none;
+  }
+
+  a:hover {
+    color: #bc2931;
+    text-decoration: underline;
+  }
+
+  a:active {
+    color: #bc2931;
+  }
 
   /*body,html,#app{*/
-    /*width: 100%;*/
-    /*height: 100%;*/
+  /*width: 100%;*/
+  /*height: 100%;*/
   /*}*/
-  .left-nav{
+  .left-nav {
     color: #FFF;
     font-size: 12px;
     height: 100%;
@@ -295,24 +304,28 @@
     float: left;
     width: 60px;
   }
+
   .left-nav li {
     padding: 10px 0;
     text-align: center;
     border-bottom: 1px solid #e7e7e7;
     transition: all .5s;
   }
-  .left-nav li:hover{
+
+  .left-nav li:hover {
     background: #F90
   }
-  .left-nav li.active{
+
+  .left-nav li.active {
     background: #F90
   }
+
   .icon {
     font-size: 36px;
     display: block
   }
 
-  .pos{
+  .pos {
     position: absolute;
     top: 0;
     right: 0;
@@ -320,100 +333,120 @@
     bottom: 0;
     margin-left: 140px;
   }
+
   .pos .el-row,
-  .pos .el-col{
+  .pos .el-col {
     height: 100%;
   }
-  .pos-order{
+
+  .pos-order {
     padding: 10px;
     background: #fbfcff;
     border-right: 1px solid #e7e7e7
   }
-  .goods-type{
+
+  .goods-type {
     padding: 10px
   }
-  .foot-statistical{
+
+  .foot-statistical {
     padding: 10px;
     text-align: center;
     background: #fff;
     border: 1px solid #e7e7e7;
     border-top: none;
   }
-  .foot-statistical span{
+
+  .foot-statistical span {
     margin: 0 10px;
     font-size: 16px
   }
-  .foot-statistical span small{
+
+  .foot-statistical span small {
     font-size: 18px
   }
-  .foot-btn{
+
+  .foot-btn {
     padding: 10px;
     text-align: center
   }
-  .foot-btn button{
+
+  .foot-btn button {
     margin-right: 20px;
   }
-  .title{
+
+  .title {
     height: 30px;
     line-height: 30px;
     font-size: 14px;
-    border-bottom:1px solid #D3DCE6;
+    border-bottom: 1px solid #D3DCE6;
     background-color: #F9FAFC;
-    padding:10px;
+    padding: 10px;
   }
-  .often-goods-list{
+
+  .often-goods-list {
     padding: 10px;
     overflow: hidden
   }
-  .often-goods-list ul li{
+
+  .often-goods-list ul li {
     list-style: none;
-    float:left;
-    border:1px solid #E5E9F2;
-    padding:10px;
-    margin:5px;
-    background-color:#fff;
+    float: left;
+    border: 1px solid #E5E9F2;
+    padding: 10px;
+    margin: 5px;
+    background-color: #fff;
     cursor: pointer
   }
-  .o-price{
-    color:#58B7FF;
+
+  .o-price {
+    color: #58B7FF;
   }
-  .cookList li{
+
+  .cookList li {
     list-style: none;
-    width:100%;
-    border:1px solid #E5E9F2;
+    width: 100%;
+    border: 1px solid #E5E9F2;
     height: auto;
     overflow: hidden;
-    background-color:#fff;
+    background-color: #fff;
     padding: 2px;
-    float:left;
+    float: left;
     margin: 2px;
     cursor: pointer;
   }
-  .cookList li span{
+
+  .cookList li span {
     display: block;
-    float:left;
-  }
-  .foodImg{
-    width: 40%;
-  }
-  .food-content{
     float: left;
   }
-  .food-content span{
+
+  .foodImg {
+    width: 40%;
+  }
+
+  .food-content {
+    float: left;
+  }
+
+  .food-content span {
     display: block;
-    width:100%;
+    width: 100%;
   }
-  .foodName{
+
+  .foodName {
     font-size: 16px;
     padding-left: 10px;
-    color:brown;
+    color: brown;
   }
-  .foodPrice{
+
+  .foodPrice {
     font-size: 16px;
     padding-left: 10px;
-    padding-top:10px;
+    padding-top: 10px;
   }
-  .qr-code{
+
+  .qr-code {
     text-align: center
   }
 </style>

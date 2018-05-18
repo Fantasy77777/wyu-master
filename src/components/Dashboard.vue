@@ -2,7 +2,8 @@
   <el-row class="warp">
     <el-col :span="24" class="warp-breadcrum">
       <el-breadcrumb separator="/">
-        <el-breadcrumb-item :to="{ path: '/' }"><h2 style="font-size: 18px;">首页---广告推荐</h2></el-breadcrumb-item>
+        <el-breadcrumb-item :to="{ path: '/' }"><h2 style="font-size: 18px;margin-top: 10px;margin-left: 5px;">首页---广告推荐</h2></el-breadcrumb-item>
+        <span id="time"></span>
       </el-breadcrumb>
     </el-col>
 
@@ -52,6 +53,11 @@
   </el-row>
 </template>
 <style>
+  #time {
+    float: right;
+    margin-right: 100px;
+    margin-top: 10px;
+  }
   .time {
     font-size: 13px;
     color: #999;
@@ -81,10 +87,12 @@
   .chart-container {
     width: 100%;
   }
+
   .chart-container .el-col {
     padding: 30px 20px;
   }
-  .warp-breadcrum{
+
+  .warp-breadcrum {
     background: #f9fafc;
     margin-top: 0;
     height: 50px;
@@ -102,7 +110,37 @@
         chartLine: null,
       };
     },
+    methods: {
+      getTime() {
+        var date = new Date();
+        var year = date.getFullYear();//年
+        var month = date.getMonth() + 1;//月0-11故+1
+        var days = date.getDate();//日
+        var day = date.getDay();  //星期
+        var weeks = ['星期日', '星期一', '星期二', '星期三', '星期四', '星期五', '星期六'];
+        var week = weeks[day]; // 获取星期
+        var hours = date.getHours();//时
+        var minutes = date.getMinutes();//分
+        var seconds = date.getSeconds(); //秒
+
+        if (month < 10) {
+          month = '0' + month;
+        }
+        if (days < 10) {
+          days = '0' + days;
+        }
+        if (minutes < 10) {
+          minutes = '0' + minutes;
+        }
+        if (seconds < 10) {
+          seconds = '0' + seconds;
+        }
+        document.getElementById("time").innerHTML = '时间：' + year + '年' + month + '月' + days + '日' + '&nbsp' + week ;
+//        setTimeout(getTime, 1000);//每秒刷新一次
+      }
+    },
     mounted: function () {
+       this.getTime()
       var _this = this;
       //基于准备好的dom，初始化echarts实例
       this.chartLine = echarts.init(document.getElementById('chartLine'));

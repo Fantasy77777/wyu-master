@@ -1,6 +1,7 @@
 /**
  * users 控制器
  */
+const Mock = require('mockjs');
 const UserModel = require('../data/user');
 let userController = {};
 let _Users = UserModel;
@@ -199,7 +200,7 @@ userController.find = function (req, res) {
 
 userController.delOneUser = function (req, res) {
   let username = req.params.id;
-  console.log('@'+username);
+  console.log('@' + username);
   UserModel.deleteOne({'username': username}, function (err) {
     if (err) {
       console.info(err);
@@ -211,12 +212,10 @@ userController.delOneUser = function (req, res) {
 };
 
 
-
-
 userController.add = function (req, res) {
-  // let conditions = req.body;
-  let conditions = ({
-    id: req.body.id,
+
+  let user = ({
+    id: Mock.Random.id(),
     username: req.body.username,
     name: req.body.name,
     password: req.body.pwd,
@@ -227,23 +226,34 @@ userController.add = function (req, res) {
     addr: req.body.addr
   });
 
-  // console.info("conditions=" + JSON.stringify(conditions));
-  // UserModel.findOneAndUpdate({_id: 0}, {$set: conditions}, {upsert: true}, function (err) {
-  UserModel.findOneAndUpdate({_id: guid()},conditions, {upsert: true}, function (err) {
-      if (err) {
-        console.info(err);
-      } else {
-        console.info('新增成功');
-        res.json({"errcode": 0, "errmsg": "成功"});
-      }
+  UserModel.findOne({username: user.username}, function (err, u) {
+
+    if (u) {
+      res.json({"errcode": 40009, "errmsg": "账号已存在！"});
+    } else {
+
+
+      UserModel.findOneAndUpdate({_id: guid()}, user, {upsert: true}, function (err) {
+          if (err) {
+            console.info(err);
+          } else {
+            console.info('新增成功');
+            res.json({"errcode": 0, "errmsg": "成功"});
+          }
+        }
+      );
+
+
     }
-  );
+  });
+
 };
 
 function guid() {
-  return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function(c) {
-    var r = Math.random()*16|0, v = c == 'x' ? r : (r&0x3|0x8);
+  return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function (c) {
+    var r = Math.random() * 16 | 0, v = c == 'x' ? r : (r & 0x3 | 0x8);
     return v.toString(16);
   });
 }
+
 module.exports = userController;

@@ -43,7 +43,7 @@
         <el-table-column label="操作" align="center" width="150">
           <template slot-scope="scope">
             <el-button size="small" @click="showEditDialog(scope.$index,scope.row)">编辑</el-button>
-            <el-button type="danger" @click="delBook(scope.row.id)" size="small">删除</el-button>
+            <el-button type="danger" @click="delBook(scope.row._id)" size="small">删除</el-button>
             <!--<el-button type="danger" @click="delBook(scope.$index,scope.row)" size="small">删除</el-button>-->
           </template>
         </el-table-column>

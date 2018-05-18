@@ -30,7 +30,7 @@
               <el-input v-model="addForm.username" auto-complete="off"></el-input>
             </el-form-item>
             <el-form-item label="员工密码" prop="pwd">
-              <el-input v-model="addForm.pwd" auto-complete="off"></el-input>
+              <el-input type="password" v-model="addForm.pwd" auto-complete="off"></el-input>
             </el-form-item>
             <el-form-item label="用户名" prop="name">
               <el-input v-model="addForm.name" auto-complete="off"></el-input>
@@ -114,6 +114,23 @@
 
   export default {
     data() {
+//      var checkPhone = (rule, value, callback) => {
+//        if (!value) {
+//          return callback(new Error('账号不能为空'));
+//        }
+//        setTimeout(() => {
+//          const reg = /^1[3|4|5|7|8][0-9]\d{8}$/;
+//          if (!Number.isInteger(value)) {
+//            callback(new Error('请输入数字值'));
+//          } else {
+//            if (value < 18) {
+//              callback(new Error('必须年满18岁'));
+//            } else {
+//              callback();
+//            }
+//          }
+//        }, 1000);
+//      };
       return {
         filters: {
           name: ''
@@ -142,7 +159,8 @@
         addLoading: false,
         addFormRules: {
           username: [
-            {required: true, message: '请输入员工账号', trigger: 'blur'}
+            {required: true, message: '请输入员工账号', trigger: 'blur'},
+            {pattern: /^[0-9a-zA-Z]*$/g,message: '请输入数字或字母', trigger: ['blur', 'change']}
           ],
           pwd: [
             {required: true, message: '请输入员工密码', trigger: 'blur'}
@@ -157,10 +175,12 @@
             {required: true, message: '请选择性别', trigger: 'blur'}
           ],
           phone: [
-            {required: true, message: '请输入电话', trigger: 'blur'}
+            {required: true, message: '请输入电话', trigger: 'blur'},
+            {pattern: /^1[3|4|5|7|8][0-9]\d{8}$/,message: '号码格式不正确' , trigger: 'blur'}
           ],
           email: [
-            {required: true, message: '请输入邮箱', trigger: 'blur'}
+            {required: true, message: '请输入邮箱', trigger: 'blur'},
+            { type: 'email', message: '请输入正确的邮箱地址', trigger: ['blur', 'change'] }
           ],
           addr: [
             {required: true, message: '请输入地址', trigger: 'blur'}
@@ -225,7 +245,7 @@
         };
       },
       delOneUser: function (uid) {
-        alert(uid);
+        alert("删除的账号为："+uid);
         let that = this;
         this.$confirm('确认删除该记录吗?', '提示', {type: 'warning'}).then(() => {
           that.loading = true;
@@ -262,7 +282,7 @@
                 that.addFormVisible = false;
                 that.search();
               } else {
-                that.$message.error({showClose: true, message: '修改失败', duration: 2000});
+                that.$message.error({showClose: true, message: '账号已存在', duration: 2000});
               }
             }, function (err) {
               that.loading = false;
